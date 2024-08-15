@@ -1,0 +1,56 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-top: 50px; /* 상단 여백 추가 */
+    box-sizing: border-box;
+}
+
+.click-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background-color: #d3d3d3;
+    border-radius: 50%;
+}
+
+.circle.active {
+    background-color: #333;
+}
+
+.title {
+    margin-bottom: 60px; /* 제목과 키패드 사이의 간격을 60px로 설정 */
+    font-size: 32px;
+    text-align: center;
+    color: #333;
+}
+
+.keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.keypad-button {
+    width: 80px;
+    height: 80px;
+    background-color: #4CAF50;
+    color: white;
+    border: 2px solid #000000;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.keypad-button:hover {
+    background-color: #45a049;
+}
