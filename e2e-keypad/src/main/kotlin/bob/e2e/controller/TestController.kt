@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class TestController {
     @GetMapping("/test/a")
-    fun getKeypad(@PathVariable filename: String) : ResponseEntity<Resource> {
-        val image: Resource = KeypadService.loadKeypad(filename)
-
-
-
-        return "Hello Spring"
-    }
+//    fun getKeypad(@PathVariable filename: String) : ResponseEntity<Resource> {
+//        val image: Resource = KeypadService.loadKeypad(filename)
+//
+//
+//
+//        return "Hello Spring"
+//    }
 
 
 
