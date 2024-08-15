@@ -5,4 +5,5 @@ import java.util.*
 data class KeypadItem(
     val number: String,
     val randomString: String,
+    val imageUrl : String?
 )

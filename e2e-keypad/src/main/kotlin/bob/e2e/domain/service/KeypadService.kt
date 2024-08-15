@@ -16,6 +16,7 @@ import javax.imageio.ImageTranscoder
 
 @Service
 class KeypadService {
+    private val keypads = mutableMapOf<String, Pair<List<KeypadItem>, String>>()
 
     fun numRandomString(length: Int): String {
         val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
@@ -62,7 +63,8 @@ class KeypadService {
         ImageIO.write(image, "png", outputFile)
     }
 
-    fun keyPadHashMap(): List<KeypadItem> {
+    //    fun keyPadHashMap(): Pair<List<KeypadItem>, String> {
+    fun keyPadHashMap(): Pair<String, List<KeypadItem>> {
         val keyList = (0..9).map { it.toString() }.toMutableList().apply {
             add("blank")
             add("blank")
@@ -75,22 +77,35 @@ class KeypadService {
             val randomString = numRandomString(10)
             val hash = hashMap(randomString)
             val image = loadImage(key)
+            val encodedImage = image?.let { encodeImage(it) }
+
             images.add(image)
 
             val item = KeypadItem(
                 number = key,
-                randomString = hash
+                randomString = hash,
+                imageUrl = encodedImage
             )
             keypadItems.add(item)
         }
 
-        // 키패드 항목들을 무작위로 섞음
         Collections.shuffle(keypadItems)
         Collections.shuffle(images)
 
         val keypadImage = makeKeypadImage(images)
         saveKeypadImage(keypadImage, "output/keypad.png")
-        return keypadItems
+
+        val encodeKepadImage = encodeImage(keypadImage)
+
+        val keypadId = UUID.randomUUID().toString()
+        keypads[keypadId] = Pair(keypadItems, encodeKepadImage)
+
+//        return Pair(keypadItems, encodeKepadImage)
+        return Pair(keypadId, keypadItems)
+    }
+
+    fun currentKeypadImage(keypadId: String): Pair<List<KeypadItem>, String>? {
+        return keypads[keypadId]
     }
 
     fun makeKeypadImage(images: List<BufferedImage>): BufferedImage {
